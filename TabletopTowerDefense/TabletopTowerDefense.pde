@@ -1,4 +1,5 @@
 Tile[][] field;
+Enemy[] wave;
 int tilesize;
 
 public void setup() {
@@ -14,6 +15,9 @@ public void setup() {
       }
     }
   }
+  Enemy test = new Enemy(10,10,tilesize);
+  wave = new Enemy[10];
+  wave[0] = test;
 }
 
 public void draw() {
@@ -23,6 +27,7 @@ public void draw() {
     }
   }
   mouse();
+  wave[0].display();
 }
 
 public void mouse(){
