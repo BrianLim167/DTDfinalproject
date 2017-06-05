@@ -1,5 +1,5 @@
 Tile[][] field;
-Enemy[] wave;
+Creep[] wave;
 int tilesize;
 
 public void setup() {
@@ -15,8 +15,8 @@ public void setup() {
       }
     }
   }
-  Enemy test = new Enemy(10,10,tilesize);
-  wave = new Enemy[10];
+  Creep test = new Creep(10,10,tilesize);
+  wave = new Creep[10];
   wave[0] = test;
 }
 
