@@ -1,5 +1,6 @@
 public class Creep {
   float x, y, vx, vy, tilesize, health;
+  int dir;
 
   public Creep(int row, int col, int tilesize) {
     this.tilesize = tilesize;
@@ -7,6 +8,7 @@ public class Creep {
     y = row * tilesize - (tilesize / 2);
     vx = 0;
     vy = 0;
+    dir = -1;
   }
 
   public void display() {
@@ -24,6 +26,9 @@ public class Creep {
      return (x + tilesize / 2) / tilesize;
   }
   
-  
-  
+  public void setVel(){
+    int row,col;
+    row = (int)(y/tilesize);
+    col = (int)(x/tilesize);
+  }
 }
