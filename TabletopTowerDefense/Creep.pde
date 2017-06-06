@@ -24,6 +24,14 @@ public class Creep {
      return (x + tilesize / 2) / tilesize;
   }
   
+  public float getX(){
+     return x; 
+  }
+  
+  public float getY(){
+     return y; 
+  }
+  
   
   
 }
