@@ -42,16 +42,16 @@ public class Tile {
     } else {
       fill(0, 0, 0);
     }
-    rect(row*tilesize, col*tilesize, tilesize, tilesize);
+    rect(col*tilesize, row*tilesize, tilesize, tilesize);
     fill(0,0,255);
-    //text(""+dist,(row+0)*tilesize,(col+0.5)*tilesize);
+    text(""+dist,(col+0)*tilesize,(row+0.5)*tilesize);
     //text(type,(row+0)*tilesize,(col+0.5)*tilesize);
   }
   public void display(float r, float g, float b) {
     if (type == 'B') {
       stroke(0, 0, 0, 0);
       fill(r, g, b);
-      rect(row*tilesize, col*tilesize, tilesize, tilesize);
+      rect(col*tilesize, row*tilesize, tilesize, tilesize);
     }
   }
 }

@@ -5,12 +5,12 @@ int tilesize;
 public void setup() {
   size(800, 600);
   tilesize = 20;
-  field = new Tile[width/tilesize][height/tilesize];
+  field = new Tile[height/tilesize][width/tilesize];
   for (int row=0; row<field.length; row++) {
     for (int col=0; col<field[0].length; col++) {
       if (row == 0 || col == 0 || row == field.length-1 || col == field[0].length-1) {
-        if (col < field[0].length/2 + 3 && col >= field[0].length/2 - 3) {
-          if (row == 0) {
+        if (row < field.length/2 + 3 && row >= field.length/2 - 3) {
+          if (col == 0) {
             field[row][col] = new Tile(row, col, tilesize, 'S');
           } else {
             field[row][col] = new Tile(row, col, tilesize, 'E');
@@ -26,6 +26,7 @@ public void setup() {
   Creep test = new Creep(10, 10, tilesize);
   wave = new Creep[10];
   wave[0] = test;
+  updateDist();
 }
 
 public void draw() {
@@ -34,9 +35,16 @@ public void draw() {
       field[row][col].display();
     }
   }
-  updateDist();
   mouse();
   wave[0].display();
+}
+
+public void mousePressed(){
+   int row = mouseY / tilesize;
+   int col = mouseX / tilesize;
+   Tower toAdd = new Tower(row, col, tilesize);
+   field[row][col] = toAdd;
+   updateDist();
 }
 
 public void updateDist() {
@@ -84,7 +92,7 @@ public void updateDist() {
 
 public void mouse() {
   int row, col;
-  row = mouseX/tilesize;
-  col = mouseY/tilesize;
+  row = mouseY/tilesize;
+  col = mouseX/tilesize;
   field[row][col].display(255, 0, 0);
 }

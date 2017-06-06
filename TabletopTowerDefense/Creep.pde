@@ -3,8 +3,8 @@ public class Creep {
 
   public Creep(int row, int col, int tilesize) {
     this.tilesize = tilesize;
-    x = row * tilesize - (tilesize / 2);
-    y = col * tilesize - (tilesize / 2);
+    x = col * tilesize - (tilesize / 2);
+    y = row * tilesize - (tilesize / 2);
     vx = 0;
     vy = 0;
   }
@@ -17,11 +17,11 @@ public class Creep {
   }
   
   public float getRow(){
-     return (x + tilesize / 2) / tilesize;
+     return (y + tilesize / 2) / tilesize;
   }
   
   public float getCol(){
-     return (y + tilesize / 2) / tilesize;
+     return (x + tilesize / 2) / tilesize;
   }
   
   
