@@ -1,7 +1,8 @@
 Tile[][] field;
 Creep[] wave;
 int tilesize;
-
+float emkra;
+///////////////////////
 public void setup() {
   size(800, 600);
   tilesize = 20;
