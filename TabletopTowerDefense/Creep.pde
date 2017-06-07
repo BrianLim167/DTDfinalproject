@@ -8,7 +8,7 @@ public class Creep {
     y = row * tilesize - (tilesize / 2);
     vx = 0;
     vy = 0;
-    dir = -1;
+    dir = -1;//
   }
 
   public void display() {
