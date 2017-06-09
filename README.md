@@ -8,11 +8,13 @@
     new features:
     	walkable tiles know their distance from the end
 
+<<<<<<< HEAD
 
 6/8/17
     new features:
     	towers shoot stuff in their range, based off of their rate of fire
 	Creeps display health as a number, purely for testing things
+        creeps travel along tiles based on distance from the end
 
     bugs:
 	When towers have nothing in their range, there are occational crashes, needs more testing
