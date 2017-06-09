@@ -66,8 +66,8 @@ public void updateDist() {
       }
     }
   }
-  loc = front.removeFirst();
   while (front.hasNext()) {
+    loc = front.removeFirst();
     for (int dir=0; dir<4; dir++) {
       int nRow, nCol;
       nRow = -1;
@@ -92,7 +92,6 @@ public void updateDist() {
         front.addLast(field[nRow][nCol]);
       }
     }
-    loc = front.removeFirst();
   }
 }
 
