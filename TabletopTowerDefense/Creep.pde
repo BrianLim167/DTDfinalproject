@@ -26,6 +26,14 @@ public class Creep {
      return (x + tilesize / 2) / tilesize;
   }
   
+  public float getX(){
+     return x; 
+  }
+  
+   public float getY(){
+     return y; 
+  }
+  
   public void setVel(){
     int row,col;
     row = (int)(y/tilesize);
