@@ -1,10 +1,12 @@
 Tile[][] field;
 Creep[] wave;
+ArrayList<Tower> Towers;
 int tilesize;
 
 public void setup() {
   size(800, 600);
   tilesize = 20;
+  Towers = new ArrayList();
   field = new Tile[height/tilesize][width/tilesize];
   for (int row=0; row<field.length; row++) {
     for (int col=0; col<field[0].length; col++) {
@@ -24,7 +26,7 @@ public void setup() {
     }
   }
   Creep test = new Creep(10, 10, tilesize);
-  wave = new Creep[10];
+  wave = new Creep[1];
   wave[0] = test;
   updateDist();
 }
@@ -36,6 +38,9 @@ public void draw() {
     }
   }
   mouse();
+  for(Tower next : Towers){
+     next.shoot(wave); 
+  }
   wave[0].display();
 }
 
@@ -44,6 +49,7 @@ public void mousePressed(){
    int col = mouseX / tilesize;
    Tower toAdd = new Tower(row, col, tilesize);
    field[row][col] = toAdd;
+   Towers.add(toAdd);
    updateDist();
 }
 

@@ -9,6 +9,7 @@ public class Creep {
     vx = 0;
     vy = 0;
     dir = -1;
+    health = 100;
   }
 
   public void display() {
@@ -16,6 +17,8 @@ public class Creep {
     x += vx;
     y += vy;
     ellipse(x, y, tilesize, tilesize);
+    fill(255,0,0);
+    text(""+health,x,y);
   }
   
   public float getRow(){
@@ -24,6 +27,14 @@ public class Creep {
   
   public float getCol(){
      return (x + tilesize / 2) / tilesize;
+  }
+  
+  public float getX(){
+     return x; 
+  }
+  
+   public float getY(){
+     return y; 
   }
   
   public void setVel(){

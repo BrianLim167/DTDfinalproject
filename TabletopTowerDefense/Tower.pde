@@ -11,21 +11,21 @@ public class Tower extends Tile {
   }
 
   public void shoot(Creep[] wave){
-      Creep target = null;
+    int x = -1;
       if(second() - lastShot >= shot_delay){
          lastShot = second();
-         target = findTarget(wave);
-      }if(target.health > 0){
-         target.health -= damage; 
+         x = findTarget(wave);
+      }if(x > -1 && wave[x].health > 0){
+         wave[x].health -= damage; 
       }
   }
   
-   public Creep findTarget(Creep[] wave){
-      for(Creep possible : wave){
-         if(sqrt(sq(possible.getX() - (col * tilesize)) + sq(possible.getY() - (row * tilesize))) <= range){
-             return possible;
+   public int findTarget(Creep[] wave){
+      for(int x = 0; x < wave.length; x++){
+         if(sqrt(sq(wave[x].getX() - (col * tilesize)) + sq(wave[x].getY() - (row * tilesize))) <= range){
+             return x;
          }
-      }return null;
+      }return -1;
    }
     
   public void display() {
