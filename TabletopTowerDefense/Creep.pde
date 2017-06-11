@@ -1,24 +1,33 @@
 public class Creep {
-  float x, y, vx, vy, tilesize, health, speed;
+  float x, y, vx, vy, tilesize, health, speed, maxHealth;
 
   public Creep(int row, int col, int tilesize) {
     this.tilesize = tilesize;
-    x = col * tilesize - (tilesize / 2);
-    y = row * tilesize - (tilesize / 2);
+    x = tilesize / 2;
+    y = height / 2;
     vx = 0;
     vy = 0;
     health = 100;
-    speed = 1;
+    maxHealth = 100;
+    speed = .5;
   }
 
   public void display() {
-    fill(0, 255, 0);
+    fill(0, 100, 200);
     x += vx;
     y += vy;
     setVel();
-    ellipse(x, y, tilesize, tilesize);
-    fill(255,0,0);
-    text(""+health,x,y);
+    ellipse(x, y + tilesize / 2, tilesize, tilesize);
+    fill(255, 0, 0);
+    rect(x - tilesize / 2, y + tilesize, tilesize, tilesize / 5);
+    fill(0, 255, 0);
+    rect(x - tilesize / 2, y + tilesize, tilesize * (health / maxHealth), tilesize / 5);
+  }
+
+  public boolean getShot(int damage) {
+    health -= damage;
+    if (health <= 0) return true;
+    else return false;
   }
 
   public float getRow() {
@@ -28,20 +37,20 @@ public class Creep {
   public float getCol() {
     return (x + tilesize / 2) / tilesize;
   }
-  
-  public float getX(){
-     return x; 
+
+  public float getX() {
+    return x;
   }
-  
-   public float getY(){
-     return y; 
+
+  public float getY() {
+    return y;
   }
 
   public void setVel() {
     int row, col;
     row = (int)(y/tilesize);
     col = (int)(x/tilesize);
-    int dx,dy;
+    int dx, dy;
     dx = 0;
     dy = 0;
     for (int dir=0; dir<4; dir++) {

@@ -1,7 +1,7 @@
 Tile[][] field;
-Creep[] wave;
+ArrayList<Creep> wave;
 ArrayList<Tower> Towers;
-int tilesize;
+int tilesize, playerHealth, gold;
 
 public void setup() {
   size(800, 600);
@@ -26,8 +26,8 @@ public void setup() {
     }
   }
   Creep test = new Creep(10, 10, tilesize);
-  wave = new Creep[1];
-  wave[0] = test;
+  wave = new ArrayList<Creep>();
+  wave.add(test);
   updateDist();
 }
 
@@ -38,10 +38,16 @@ public void draw() {
     }
   }
   mouse();
+  int dead = -1;
   for(Tower next : Towers){
-     next.shoot(wave); 
+      dead = next.shoot(wave);
+     if(dead >= 0){
+         wave.remove(dead);
+     }
   }
-  wave[0].display();
+  for(Creep next : wave){
+     next.display(); 
+  }
 }
 
 public void mousePressed(){
