@@ -1,5 +1,6 @@
 public class Creep {
-  float x, y, vx, vy, tilesize, health, speed, maxHealth;
+  float x, y, vx, vy, speed, health, maxHealth;
+  int tilesize;
 
   public Creep(int row, int col, int tilesize) {
     this.tilesize = tilesize;
@@ -30,12 +31,12 @@ public class Creep {
     else return false;
   }
 
-  public float getRow() {
-    return (y + tilesize / 2) / tilesize;
+  public int getRow() {
+    return ((int)y + tilesize / 2) / tilesize;
   }
 
-  public float getCol() {
-    return (x + tilesize / 2) / tilesize;
+  public int getCol() {
+    return ((int)x + tilesize / 2) / tilesize;
   }
 
   public float getX() {

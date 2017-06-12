@@ -39,24 +39,42 @@ public void draw() {
   }
   mouse();
   int dead = -1;
-  for(Tower next : Towers){
-      dead = next.shoot(wave);
-     if(dead >= 0){
-         wave.remove(dead);
-     }
+  for (Tower next : Towers) {
+    dead = next.shoot(wave);
+    if (dead >= 0) {
+      wave.remove(dead);
+    }
   }
-  for(Creep next : wave){
-     next.display(); 
+  for (Creep next : wave) {
+    next.display();
   }
 }
 
-public void mousePressed(){
-   int row = mouseY / tilesize;
-   int col = mouseX / tilesize;
-   Tower toAdd = new Tower(row, col, tilesize);
-   field[row][col] = toAdd;
-   Towers.add(toAdd);
-   updateDist();
+public void mousePressed() {
+  int row = mouseY / tilesize;
+  int col = mouseX / tilesize;
+  if (field[row][col].getType() == 'B') {
+    Tower toAdd = new Tower(row, col, tilesize);
+    field[row][col] = toAdd;
+    updateDist();
+    for (Creep next : wave) {
+      if (field[next.getRow()][next.getCol()].getDist() == -1) {
+        field[row][col] = new Tile(row, col, tilesize, 'B');
+        updateDist();
+        return;
+      }
+    }
+    for (int r=0; r<field.length; r++) {
+      for (int c=0; c<field[0].length; c++) {
+        if (field[r][c].getType() == 'S' && field[r][c].getDist() == -1) {
+          field[row][col] = new Tile(row, col, tilesize, 'B');
+          updateDist();
+          return;
+        }
+      }
+    }
+    Towers.add(toAdd);
+  }
 }
 
 public void updateDist() {
