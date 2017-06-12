@@ -1,5 +1,8 @@
 # DTDfinalproject
 
+Running instructions:
+	nothing special, just click next wave, because there is no timer for spawing new waves.
+	
 06/05/17
     current features:
 	field of tiles
@@ -7,8 +10,6 @@
 	ability to place towers
     new features:
     	walkable tiles know their distance from the end
-
-<<<<<<< HEAD
 
 6/8/17
     new features:
@@ -24,3 +25,16 @@
 6/11/17
     new features:
         towers cannot completely block creeps or the start tiles
+	waves spawn
+	two types of towers
+	3 types of enemies
+	creeps die
+	waves progessivly get harder, forever
+	ui changes
+	costs gold to place towers
+    bugs:
+	Creep sprites look like they can walk through towers
+	no shooting animations
+	horribly imbalanced (not really a bug)
+	
+
