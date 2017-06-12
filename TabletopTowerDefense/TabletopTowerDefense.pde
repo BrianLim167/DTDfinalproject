@@ -6,7 +6,7 @@ int tilesize, playerHealth, gold, waveSpawn, waveNumber, creepSpawned;
 
 public void setup() {
   waveNumber = 1;
-  gold = 5000;
+  gold = 500;
   waveSpawn = second();
   playerHealth = 100;
   size(800, 600);
