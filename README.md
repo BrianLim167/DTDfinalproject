@@ -32,8 +32,9 @@ Running instructions:
 	waves progessivly get harder, forever
 	ui changes
 	costs gold to place towers
+	click on towers to sell for gold
     bugs:
-	Creep sprites look like they can walk through towers
+	Creep sprites look like they can walk through towers (seems to be becuase the creep is really just a pixel on top of the sprite)
 	no shooting animations
 	horribly imbalanced (not really a bug)
 	

@@ -90,12 +90,22 @@ public void draw() {
 }
 
 public void mousePressed() {
+  int row = mouseY / tilesize;
+  int col = mouseX / tilesize;
   if (mouseX > width - 150 && mouseY < 45 && wave.size() == 0) {
     toBeSpawned = spawnNextWave();
-  } else if (mouseButton == RIGHT && gold >= 175) {  
-    int row = mouseY / tilesize;
-    int col = mouseX / tilesize;
-    if (field[row][col].getType() == 'B' || field[row][col].getType() == 'R') {
+  } else if (field[row][col].getType() == 'T') {
+    gold += 75;
+    field[row][col] = new Tile(row, col, tilesize, 'B');
+    updateDist();
+    for (int ind=0 ; ind<Towers.size() ; ind++){
+      if (Towers.get(ind).getRow() == row && Towers.get(ind).getCol() == col){
+        Towers.remove(ind);
+        return;
+      }
+    }
+  } else if (mouseButton == RIGHT) {  
+    if (field[row][col].getType() == 'B' && gold >= 175) {
       Tower toAdd = new Tower(row, col, tilesize, 'H');
       field[row][col] = toAdd;
       updateDist();
@@ -119,9 +129,7 @@ public void mousePressed() {
       gold -= 175;
       //if (field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
     }
-  } else if (gold >= 150) {
-    int row = mouseY / tilesize;
-    int col = mouseX / tilesize;
+  } else if (field[row][col].getType() == 'B' && gold >= 150) {
     if (field[row][col].getType() == 'B' || field[row][col].getType() == 'R') {
       Tower toAdd = new Tower(row, col, tilesize, 'F');
       field[row][col] = toAdd;

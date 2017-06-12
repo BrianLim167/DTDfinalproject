@@ -44,8 +44,8 @@ public class Tower extends Tile {
   }
 
   public void display() {
-    if(type == 'F') fill(200, 50, 200);
-    else fill(255,50,255);
+    if (type == 'F') fill(200, 50, 200);
+    else fill(255, 50, 255);
     rect(col*tilesize, row*tilesize, tilesize, tilesize);
   }
 }
