@@ -5,20 +5,21 @@ public class Tower extends Tile {
   public Tower(int row, int col, float tilesize) {
     super(row, col, tilesize, 'T');
     this.damage = 25;
-    this.shot_delay = 3;
+    this.shot_delay = 2;
     lastShot = second();
-    range = 250;
+    range = 100;
   }
 
   public int shoot(ArrayList<Creep> wave) {
     int x = -1;
+    if(lastShot >= 60) lastShot = second();
     if (second() - lastShot >= shot_delay) {
       x = findTarget(wave);
     }
     if (x > -1) {
       lastShot = second();
-      if(wave.get(x).getShot(damage)){
-         return x; 
+      if (wave.get(x).getShot(damage)) {
+        return x;
       }
     }
     return -1;

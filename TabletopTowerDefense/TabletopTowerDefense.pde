@@ -1,16 +1,20 @@
 Tile[][] field;
-ArrayList<Creep> wave;
+ArrayList<Creep> wave, toBeSpawned;
 ArrayList<Tower> Towers;
-int tilesize, playerHealth, gold;
+int tilesize, playerHealth, gold, waveSpawn, waveNumber, creepSpawned;
 
 public void setup() {
+  waveNumber = 5;
+  gold = 5000;
+  waveSpawn = second();
+  playerHealth = 100;
   size(800, 600);
   tilesize = 20;
   Towers = new ArrayList();
   field = new Tile[height/tilesize][width/tilesize];
   for (int row=0; row<field.length; row++) {
     for (int col=0; col<field[0].length; col++) {
-      if (row == 0 || col == 0 || row == field.length-1 || col == field[0].length-1) {
+      if (row <= 1 || col == 0 || row >= field.length-3 || col == field[0].length-1) {
         if (row < field.length/2 + 3 && row >= field.length/2 - 3) {
           if (col == 0) {
             field[row][col] = new Tile(row, col, tilesize, 'S');
@@ -25,13 +29,14 @@ public void setup() {
       }
     }
   }
-  Creep test = new Creep(10, 10, tilesize);
   wave = new ArrayList<Creep>();
-  wave.add(test);
+  toBeSpawned = spawnNextWave();
+  creepSpawned = millis();
   updateDist();
 }
 
 public void draw() {
+  background(0, 0, 0);
   for (int row=0; row<field.length; row++) {
     for (int col=0; col<field[0].length; col++) {
       field[row][col].display();
@@ -39,24 +44,48 @@ public void draw() {
   }
   mouse();
   int dead = -1;
-  for(Tower next : Towers){
-      dead = next.shoot(wave);
-     if(dead >= 0){
-         wave.remove(dead);
-     }
+  for (Tower next : Towers) {
+    dead = next.shoot(wave);
+    if (dead >= 0) {
+      wave.remove(dead);
+      gold += 25;
+    }
   }
-  for(Creep next : wave){
-     next.display(); 
+  for (int i = 0; i < wave.size(); i++) {
+    if (wave.get(i).display()) {
+      wave.remove(i);
+      i--;
+      playerHealth -= 1;
+    }
   }
+  if (second() - waveSpawn > 30) {
+    toBeSpawned = spawnNextWave();
+    waveSpawn = second();
+  }
+  creepSpawned = spawnMore();
+  textSize(18);
+  fill(255, 50, 50);
+  text(playerHealth, 100, height - 30);
+  text("Health:", 35, height - 30);
+  fill(255, 100, 0);
+  text(gold, 240, height - 30);
+  text("Gold:", 175, height - 30);
+  fill(100, 255, 50);
+  text(wave.size(), 520, height - 30);
+  text("Remaining Enemies:", 315, height - 30);
 }
 
-public void mousePressed(){
-   int row = mouseY / tilesize;
-   int col = mouseX / tilesize;
-   Tower toAdd = new Tower(row, col, tilesize);
-   field[row][col] = toAdd;
-   Towers.add(toAdd);
-   updateDist();
+public void mousePressed() {
+  if (gold >= 150) {
+    int row = mouseY / tilesize;
+    int col = mouseX / tilesize;
+    Tower toAdd = new Tower(row, col, tilesize);
+    field[row][col] = toAdd;
+    if(field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
+    Towers.add(toAdd);
+    updateDist();
+    gold -= 150;
+  }
 }
 
 public void updateDist() {
@@ -106,4 +135,34 @@ public void mouse() {
   row = mouseY/tilesize;
   col = mouseX/tilesize;
   field[row][col].display(255, 0, 0);
+}
+
+public ArrayList<Creep> spawnNextWave() {
+  ArrayList<Creep> toBeSpawned = new ArrayList<Creep>();
+  for (int x = 0; x < waveNumber * (5 + (waveNumber - 4)); x++) {
+    toBeSpawned.add(new Creep(tilesize, 70, .25, #0000FF));
+  }
+  if (waveNumber > 4) {
+    for (int x = 0; x < (waveNumber - 4) * (3 + (waveNumber - 7)); x++) {
+      toBeSpawned.add(new Creep(tilesize, 30, .55, #38B480));
+    }
+  }
+  if (waveNumber > 7) {
+    for (int x = 0; x < (2 * (waveNumber - 6)) * (pow(-1, waveNumber - 1)); x++) {
+      toBeSpawned.add(new Creep(tilesize, 500, .1, #72273D));
+    }
+  }
+  waveNumber++;
+  return toBeSpawned;
+}
+
+public int spawnMore() {
+  if (toBeSpawned.size() > 0) {
+    if (millis() - creepSpawned > 10000 / ((waveNumber - 1) * 10)) {
+      int index = (int)random(0, toBeSpawned.size() - 1);
+      wave.add(toBeSpawned.remove(index));
+      return millis();
+    }
+  }
+  return creepSpawned;
 }

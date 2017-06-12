@@ -34,7 +34,7 @@ public class Tile {
     stroke(0, 0, 0, 0);
     //fill(255);
     if (type == 'W') {
-      fill(255, 255, 255);
+      fill(110, 110, 110);
     } else if (type == 'S') {
       fill(0, 200, 0);
     } else if (type == 'E') {
@@ -44,7 +44,7 @@ public class Tile {
     }
     rect(col*tilesize, row*tilesize, tilesize, tilesize);
     fill(0, 0, 255);
-    //text(""+dist,(col+0)*tilesize,(row+0.5)*tilesize);
+    //text(""+dist, (col+0)*tilesize, (row+0.5)*tilesize);
     //text(type,(row+0)*tilesize,(col+0.5)*tilesize);
   }
   public void display(float r, float g, float b) {

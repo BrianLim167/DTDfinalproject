@@ -1,27 +1,30 @@
 public class Creep {
   float x, y, vx, vy, tilesize, health, speed, maxHealth;
+  int fill;
 
-  public Creep(int row, int col, int tilesize) {
+  public Creep(float tilesize, float health, float speed, int fill) {
     this.tilesize = tilesize;
     x = tilesize / 2;
-    y = height / 2;
+    y = height / 2 + (((int) random(0,2) - 1) * tilesize);
     vx = 0;
     vy = 0;
-    health = 100;
-    maxHealth = 100;
-    speed = .5;
+    this.health = health;
+    maxHealth = health;
+    this.speed = speed;
+    this.fill = fill;
   }
 
-  public void display() {
-    fill(0, 100, 200);
+
+  public boolean display() {
+    fill(fill);
     x += vx;
     y += vy;
-    setVel();
     ellipse(x, y + tilesize / 2, tilesize, tilesize);
     fill(255, 0, 0);
     rect(x - tilesize / 2, y + tilesize, tilesize, tilesize / 5);
     fill(0, 255, 0);
     rect(x - tilesize / 2, y + tilesize, tilesize * (health / maxHealth), tilesize / 5);
+    return setVel();
   }
 
   public boolean getShot(int damage) {
@@ -46,7 +49,7 @@ public class Creep {
     return y;
   }
 
-  public void setVel() {
+  public boolean setVel() {
     int row, col;
     row = (int)(y/tilesize);
     col = (int)(x/tilesize);
@@ -72,12 +75,15 @@ public class Creep {
       }
       nRow = row + dy;
       nCol = col + dx;
+      if (nCol == width / tilesize){
+          return true;
+      }
       if (nRow >= 0 && nRow < field.length && nCol >= 0 && nCol < field[0].length &&
         field[nRow][nCol].getDist() >= 0 &&
         field[nRow][nCol].getDist() < field[row][col].getDist()) {
         vx = speed * dx;
         vy = speed * dy;
       }
-    }
-  }
+    } return false;
+  } 
 }
