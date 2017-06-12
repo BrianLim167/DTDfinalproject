@@ -73,15 +73,19 @@ public void draw() {
   fill(100, 255, 50);
   text(wave.size(), 520, height - 30);
   text("Remaining Enemies:", 315, height - 30);
+
 }
 
 public void mousePressed() {
-  if (gold >= 150) {
+  if (mouseX > width - 200 && mouseY < 75 && wave.size() == 0) {
+    spawnNextWave();
+  }
+  else if (gold >= 150) {
     int row = mouseY / tilesize;
     int col = mouseX / tilesize;
     Tower toAdd = new Tower(row, col, tilesize);
     field[row][col] = toAdd;
-    if(field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
+    if (field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
     Towers.add(toAdd);
     updateDist();
     gold -= 150;

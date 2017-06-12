@@ -20,3 +20,7 @@
 	When towers have nothing in their range, there are occational crashes, needs more testing
 	If a tower has nothing in its range, its shooting cooldown is still reset
 	Creeps don't despawn on death, yet
+
+6/11/17
+    new features:
+        towers cannot completely block creeps or the start tiles

@@ -46,6 +46,8 @@ public class Tile {
     fill(0, 0, 255);
     //text(""+dist, (col+0)*tilesize, (row+0.5)*tilesize);
     //text(type,(row+0)*tilesize,(col+0.5)*tilesize);
+    //text(""+dist,(col+0)*tilesize,(row+0.5)*tilesize);
+    //text(type,(col+0)*tilesize,(row+0.5)*tilesize);
   }
   public void display(float r, float g, float b) {
     if (type == 'B') {
