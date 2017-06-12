@@ -23,4 +23,4 @@
 
 6/11/17
     new features:
-        towers cannot completely block creeps or the start blocks
+        towers cannot completely block creeps or the start tiles
