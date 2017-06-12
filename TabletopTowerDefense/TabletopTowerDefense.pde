@@ -73,23 +73,30 @@ public void draw() {
   fill(100, 255, 50);
   text(wave.size(), 520, height - 30);
   text("Remaining Enemies:", 315, height - 30);
-  fill(255,255,255);
+  fill(255, 255, 255);
   text(waveNumber - 1, 720, height - 30);
   text("Current Wave:", 580, height - 30);
-  fill(114,39,61);
+  fill(39, 200, 161);
   rect(width - 150, 0, 150, 40);
-  fill(200,25,125);
+  fill(200, 25, 125);
   text("Next Wave", width - 140, 24);
+  fill(39, 200, 161);
+  rect(40, 0, 400, 17);
+  rect(40, 20, 400, 17);
+  fill(200, 25, 125);
+  textSize(16);
+  text("Right clock to place heavy turret for 175 gold", 55, 12);
+  text("Left click to place light turrent for 150 gold", 55, 33);
 }
 
 public void mousePressed() {
   if (mouseX > width - 150 && mouseY < 45 && wave.size() == 0) {
     toBeSpawned = spawnNextWave();
-  } else if (gold >= 150) {
+  } else if (mouseButton == RIGHT && gold >= 175) {  
     int row = mouseY / tilesize;
     int col = mouseX / tilesize;
     if (field[row][col].getType() == 'B' || field[row][col].getType() == 'R') {
-      Tower toAdd = new Tower(row, col, tilesize);
+      Tower toAdd = new Tower(row, col, tilesize, 'H');
       field[row][col] = toAdd;
       updateDist();
       for (Creep next : wave) {
@@ -109,7 +116,35 @@ public void mousePressed() {
         }
       }
       Towers.add(toAdd);
-      if (field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
+      gold -= 175;
+      //if (field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
+    }
+  } else if (gold >= 150) {
+    int row = mouseY / tilesize;
+    int col = mouseX / tilesize;
+    if (field[row][col].getType() == 'B' || field[row][col].getType() == 'R') {
+      Tower toAdd = new Tower(row, col, tilesize, 'F');
+      field[row][col] = toAdd;
+      updateDist();
+      for (Creep next : wave) {
+        if (field[next.getRow()][next.getCol()].getDist() == -1) {
+          field[row][col] = new Tile(row, col, tilesize, 'B');
+          updateDist();
+          return;
+        }
+      }
+      for (int r=0; r<field.length; r++) {
+        for (int c=0; c<field[0].length; c++) {
+          if (field[r][c].getType() == 'S' && field[r][c].getDist() == -1) {
+            field[row][col] = new Tile(row, col, tilesize, 'B');
+            updateDist();
+            return;
+          }
+        }
+      }
+      Towers.add(toAdd);
+      gold -= 150;
+      //if (field[row - 1][col].type == 'B') field[row - 1][col].type = 'R';
     }
   }
 }
