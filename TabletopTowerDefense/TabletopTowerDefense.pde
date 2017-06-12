@@ -84,7 +84,7 @@ public void draw() {
 
 public void mousePressed() {
   if (mouseX > width - 150 && mouseY < 45 && wave.size() == 0) {
-    spawnNextWave();
+    toBeSpawned = spawnNextWave();
   } else if (gold >= 150) {
     int row = mouseY / tilesize;
     int col = mouseX / tilesize;
