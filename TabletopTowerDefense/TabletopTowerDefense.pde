@@ -8,7 +8,7 @@ public void setup() {
   waveNumber = 1;
   gold = 500;
   waveSpawn = second();
-  playerHealth = 100;
+  playerHealth = 10;
   size(800, 600);
   tilesize = 20;
   Towers = new ArrayList();
@@ -38,28 +38,34 @@ public void setup() {
 
 public void draw() {
   background(0, 0, 0);
-  for (int row=0; row<field.length; row++) {
-    for (int col=0; col<field[0].length; col++) {
-      field[row][col].display();
+  if (playerHealth > 0) {
+    for (int row=0; row<field.length; row++) {
+      for (int col=0; col<field[0].length; col++) {
+        field[row][col].display();
+      }
     }
-  }
-  mouse();
-  int dead = -1;
-  for (Tower next : Towers) {
-    dead = next.shoot(wave);
-    if (dead >= 0) {
-      wave.remove(dead);
-      gold += 25;
+    mouse();
+    int dead = -1;
+    for (Tower next : Towers) {
+      dead = next.shoot(wave);
+      if (dead >= 0) {
+        wave.remove(dead);
+        gold += 25;
+      }
     }
-  }
-  for (int i = 0; i < wave.size(); i++) {
-    if (wave.get(i).display()) {
-      wave.remove(i);
-      i--;
-      playerHealth -= 1;
+    for (int i = 0; i < wave.size(); i++) {
+      if (wave.get(i).display()) {
+        wave.remove(i);
+        i--;
+        playerHealth -= 1;
+      }
     }
+    creepSpawned = spawnMore();
+  } else {
+    textSize(30);
+    fill (155, 155, 155);
+    text("Game Over", width/2 - 70, height/2);
   }
-  creepSpawned = spawnMore();
   textSize(18);
   fill(255, 50, 50);
   text(playerHealth, 100, height - 30);
@@ -98,8 +104,8 @@ public void mousePressed() {
     gold += 75;
     field[row][col] = new Tile(row, col, tilesize, 'B');
     updateDist();
-    for (int ind=0 ; ind<Towers.size() ; ind++){
-      if (Towers.get(ind).getRow() == row && Towers.get(ind).getCol() == col){
+    for (int ind=0; ind<Towers.size(); ind++) {
+      if (Towers.get(ind).getRow() == row && Towers.get(ind).getCol() == col) {
         Towers.remove(ind);
         return;
       }

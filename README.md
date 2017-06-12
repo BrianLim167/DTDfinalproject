@@ -33,6 +33,7 @@ Running instructions:
 	ui changes
 	costs gold to place towers
 	click on towers to sell for gold
+	game over when health reaches 0
     bugs:
 	Creep sprites look like they can walk through towers (seems to be becuase the creep is really just a pixel on top of the sprite)
 	no shooting animations
